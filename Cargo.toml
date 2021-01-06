@@ -1,0 +1,11 @@
+[package]
+name = "horical"
+version = "0.1.0"
+description = "Horizontally formatted text calendar for conky"
+authors = ["Ryan O'Beirne <ryanobeirne@ryanobeirne.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+holiday = { git = "https://gitlab.com/ryanobeirne/holiday" }
