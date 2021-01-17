@@ -4,7 +4,7 @@ use std::io::Write;
 
 fn main() -> Result<(), Box<dyn std::error::Error>>{
     let mut std_out = std::io::stdout();
-    write!(&mut std_out, "{}", HoriCal::today())?;
+    writeln!(&mut std_out, "{}", HoriCal::today())?;
 
     Ok(())
 }
@@ -39,6 +39,8 @@ impl fmt::Display for HoriCal {
             .map(|(i, day)| {
                 if i == self.today  as usize{
                     format!("${{color0}}{:02}${{color}}", day)
+                } else if self.weekdays[i].is_weekend() {
+                    format!("${{color1}}{:02}${{color}}", day)
                 } else {
                     format!("{:02}", day)
                 }
@@ -46,7 +48,7 @@ impl fmt::Display for HoriCal {
             .collect::<Vec<_>>()
             .join("  ");
 
-        writeln!(f, "{}\n{}", weekdays, days)
+        write!(f, "{}\n{}", weekdays, days)
     }
 }
 
@@ -80,9 +82,15 @@ enum TwoLetterWkday {
     SU, MO, TU, WE, TH, FR, SA,
 }
 
-impl TwoLetterWkday {
+impl IsWeekend for TwoLetterWkday {
     fn is_weekend(&self) -> bool {
         self == &SA || self == &SU
+    }
+}
+
+impl IsWeekend for Weekday {
+    fn is_weekend(&self) -> bool {
+        self == &Weekday::Sat || self == &Weekday::Sun
     }
 }
 
@@ -105,4 +113,8 @@ impl From<&Weekday> for TwoLetterWkday {
             Sat => SA,
         }
     }
+}
+
+trait IsWeekend {
+    fn is_weekend(&self) -> bool;
 }
