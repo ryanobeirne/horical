@@ -2,6 +2,9 @@
 
 Horizontally formatted text calendar for conky
 
+![github_rust](https://github.com/ryanobeirne/horical/workflows/Rust/badge.svg)
+![gitlab_pipeline](https://gitlab.com/ryanobeirne/horical/badges/master/pipeline.svg?ignore_skipped=true)
+
 ## Sample Output
 
 On Sunday 17 January 2021, the output would look like this:
