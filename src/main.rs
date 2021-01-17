@@ -2,7 +2,7 @@ use holiday::*;
 use std::fmt;
 use std::io::Write;
 
-fn main() -> Result<(), Box<dyn std::error::Error>>{
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut std_out = std::io::stdout();
     writeln!(&mut std_out, "{}", HoriCal::today())?;
 
@@ -17,7 +17,8 @@ struct HoriCal {
 
 impl fmt::Display for HoriCal {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let weekdays = self.weekdays
+        let weekdays = self
+            .weekdays
             .iter()
             .enumerate()
             .map(|(i, wkd)| {
@@ -33,11 +34,12 @@ impl fmt::Display for HoriCal {
             .collect::<Vec<_>>()
             .join("  ");
 
-        let  days = self.days
+        let days = self
+            .days
             .iter()
             .enumerate()
             .map(|(i, day)| {
-                if i == self.today  as usize{
+                if i == self.today as usize {
                     format!("${{color0}}{:02}${{color}}", day)
                 } else if self.weekdays[i].is_weekend() {
                     format!("${{color1}}{:02}${{color}}", day)
@@ -67,7 +69,6 @@ impl HoriCal {
             i = i.succ();
         }
 
-
         HoriCal {
             weekdays,
             days,
@@ -79,7 +80,13 @@ impl HoriCal {
 use TwoLetterWkday::*;
 #[derive(Debug, PartialEq, Eq)]
 enum TwoLetterWkday {
-    SU, MO, TU, WE, TH, FR, SA,
+    SU,
+    MO,
+    TU,
+    WE,
+    TH,
+    FR,
+    SA,
 }
 
 impl IsWeekend for TwoLetterWkday {
